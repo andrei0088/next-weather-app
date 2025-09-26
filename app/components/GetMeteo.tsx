@@ -6,6 +6,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 interface Props {
   city: string;
 }
+
 interface Weather {
   main: {
     temp: number;
@@ -23,7 +24,7 @@ const GetMeteo = ({ city }: Props) => {
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        const res = await fetch(`./api?city=${city}`);
+        const res = await fetch(`/api?city=${city}`);
         const data = await res.json();
         setWeather(data);
       } catch (err) {
@@ -33,16 +34,14 @@ const GetMeteo = ({ city }: Props) => {
     fetchWeather();
   }, [city]);
 
-  // Transformă gradul vântului în direcție
-  function getWindDirection(deg: number | undefined) {
+  const getWindDirection = (deg?: number) => {
     if (deg === undefined) return "";
     const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"];
     const idx = Math.round((deg % 360) / 45);
     return directions[idx];
-  }
+  };
 
-  // Map OpenWeather icons la clase Bootstrap Icons
-  function getBootstrapWeatherIcon(owmIcon: string | undefined) {
+  const getBootstrapWeatherIcon = (owmIcon?: string) => {
     if (!owmIcon) return "bi-question-circle";
     const map: { [key: string]: string } = {
       "01d": "bi-sun",
@@ -65,18 +64,16 @@ const GetMeteo = ({ city }: Props) => {
       "50n": "bi-cloud-fog",
     };
     return map[owmIcon] || "bi-question-circle";
-  }
+  };
 
   if (!weather) {
     return (
-      <div className="flex justify-center items-center p-4 text-gray-500">
-        Loading...
-      </div>
+      <div className="animate-pulse bg-gray-200 rounded-xl h-64 w-64"></div>
     );
   }
 
   return (
-    <section className="bg-gradient-to-b from-gray-100 via-gray-200 to-gray-300 text-gray-900 p-5 rounded-xl shadow-md w-64 flex flex-col items-center transition-transform transform hover:scale-105">
+    <section className="bg-gradient-to-b from-indigo-50 via-indigo-100 to-indigo-200 text-gray-900 p-5 rounded-xl shadow-md w-64 flex flex-col items-center transition-transform transform hover:scale-105">
       {/* Icon și titlu */}
       <div className="flex flex-col items-center mb-4">
         <i
@@ -111,7 +108,7 @@ const GetMeteo = ({ city }: Props) => {
         </li>
         <li>
           <span className="font-medium">Wind:</span>{" "}
-          {(weather.wind?.speed ?? 0 * 3.6).toFixed(1)} km/h
+          {((weather.wind?.speed ?? 0) * 3.6).toFixed(1)} km/h
           {weather.wind?.deg != null &&
             ` • ${getWindDirection(weather.wind.deg)}`}
         </li>
