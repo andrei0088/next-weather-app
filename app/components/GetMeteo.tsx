@@ -6,9 +6,19 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 interface Props {
   city: string;
 }
+interface Weather {
+  main: {
+    temp: number;
+    feels_like: number;
+    humidity: number;
+    pressure: number;
+  };
+  weather: { description: string; icon: string }[];
+  wind: { speed: number; deg: number };
+}
 
 const GetMeteo = ({ city }: Props) => {
-  const [weather, setWeather] = useState<any>(null);
+  const [weather, setWeather] = useState<Weather | null>(null);
 
   useEffect(() => {
     const fetchWeather = async () => {

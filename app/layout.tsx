@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import Hamburger from "./components/Hamburger";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,7 @@ export default function RootLayout({
             {/* Logo */}
             <div className="flex items-center space-x-2">
               <div className="flex space-x-5 justify-center pl-6 pr-6 items-center bg-white rounded-full">
-                <img src="/logo.png" alt="Logo" width={48} height={48} />
+                <Image src="/logo.png" alt="Logo" width={48} height={48} />
                 <span className="text-xl font-bold text-gray-800">Weather</span>
               </div>
             </div>
