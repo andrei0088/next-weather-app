@@ -34,14 +34,14 @@ const GetMeteo = ({ city }: Props) => {
     fetchWeather();
   }, [city]);
 
-  const getWindDirection = (deg?: number) => {
+  const getWindDirection = (deg: number | undefined) => {
     if (deg === undefined) return "";
     const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"];
     const idx = Math.round((deg % 360) / 45);
     return directions[idx];
   };
 
-  const getBootstrapWeatherIcon = (owmIcon?: string) => {
+  const getBootstrapWeatherIcon = (owmIcon: string | undefined) => {
     if (!owmIcon) return "bi-question-circle";
     const map: { [key: string]: string } = {
       "01d": "bi-sun",
@@ -68,13 +68,14 @@ const GetMeteo = ({ city }: Props) => {
 
   if (!weather) {
     return (
-      <div className="animate-pulse bg-gray-200 rounded-xl h-64 w-64"></div>
+      <div className="flex justify-center items-center p-4 text-gray-500">
+        Loading...
+      </div>
     );
   }
 
   return (
-    <section className="bg-gradient-to-b from-indigo-50 via-indigo-100 to-indigo-200 text-gray-900 p-5 rounded-xl shadow-md w-64 flex flex-col items-center transition-transform transform hover:scale-105">
-      {/* Icon și titlu */}
+    <section className="bg-gradient-to-b from-gray-100 via-gray-200 to-gray-300 text-gray-900 p-5 rounded-xl shadow-md w-64 flex flex-col items-center transition-transform transform hover:scale-105">
       <div className="flex flex-col items-center mb-4">
         <i
           className={`bi ${getBootstrapWeatherIcon(
@@ -87,8 +88,6 @@ const GetMeteo = ({ city }: Props) => {
           {weather.weather?.[0]?.description ?? "N/A"}
         </p>
       </div>
-
-      {/* Info meteo */}
       <ul className="w-full space-y-1 text-center text-gray-800">
         <li>
           <span className="font-medium">Temp:</span>{" "}
@@ -108,7 +107,7 @@ const GetMeteo = ({ city }: Props) => {
         </li>
         <li>
           <span className="font-medium">Wind:</span>{" "}
-          {((weather.wind?.speed ?? 0) * 3.6).toFixed(1)} km/h
+          {(weather.wind?.speed ?? 0 * 3.6).toFixed(1)} km/h
           {weather.wind?.deg != null &&
             ` • ${getWindDirection(weather.wind.deg)}`}
         </li>
