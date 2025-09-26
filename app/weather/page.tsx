@@ -6,7 +6,7 @@ import GetMeteo from "../components/GetMeteo";
 
 const WeatherPage = () => {
   const searchParams = useSearchParams();
-  const city = searchParams.get("city");
+  const city = searchParams.get("city") ?? "Bucharest";
 
   return (
     <div className="w-fit mx-auto my-7">
