@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Hamburger = () => {
   const [menu, setMenu] = useState(false);
@@ -10,7 +11,7 @@ const Hamburger = () => {
       {/* Logo */}
       <div className="flex items-center space-x-2">
         <div className="flex space-x-5 justify-center pl-6 pr-6 items-center bg-white rounded-full">
-          <img src="/logo.png" alt="Logo" width={48} height={48} />
+          <Image src="/logo.png" alt="Logo" width={48} height={48} />
           <span className="text-xl font-bold text-gray-800">Weather</span>
         </div>
         <div

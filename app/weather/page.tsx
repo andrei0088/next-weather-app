@@ -2,7 +2,8 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 import GetMeteo from "../components/GetMeteo";
-const page = () => {
+
+const Page = () => {
   const searchParams = useSearchParams();
   const city = searchParams.get("city") || "Bucharest";
 
@@ -13,4 +14,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
