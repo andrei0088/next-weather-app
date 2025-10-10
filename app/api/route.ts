@@ -5,7 +5,7 @@ export async function GET(req: Request) {
     const get = new URL(req.url);
     const city = get.searchParams.get("city");
 
-    const ApiKey = "720560df02dadd8232132f6a2c6fc65d"; // free api key
+    const ApiKey = process.env.NEXT_PUBLIC_API_KEY; // free api key
 
     const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${ApiKey}&units=metric`;
 

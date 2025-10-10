@@ -1,20 +1,19 @@
-"use client";
-
+// app/weather/page.tsx
 import React from "react";
-import { useSearchParams } from "next/navigation";
 import GetMeteo from "../components/GetMeteo";
 
-export const dynamic = "force-dynamic";
+type WeatherPageProps = {
+  searchParams?: Promise<{ [key: string]: string | undefined }>;
+};
 
-const WeatherPage = () => {
-  const searchParams = useSearchParams(); // hook apelat direct
-  const city = searchParams?.get("city") ?? "Bucharest"; // fallback
+export default async function WeatherPage({ searchParams }: WeatherPageProps) {
+  // Așteptăm rezolvarea promisiunii pentru a obține parametrii
+  const params = await searchParams;
+  const city = params?.city ?? "Bucharest";
 
   return (
     <div className="w-fit mx-auto my-7">
       <GetMeteo city={city} />
     </div>
   );
-};
-
-export default WeatherPage;
+}
